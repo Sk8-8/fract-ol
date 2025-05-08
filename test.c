@@ -1,5 +1,7 @@
 #include "minlib/mlx.h"
 
+// gcc test.c -Lminlib -lmlx -lXext -lX11 -o test
+
 int	main(void)
 {
 	void	*mlx;
