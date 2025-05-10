@@ -6,7 +6,7 @@
 /*   By: kguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:22:52 by kguillem          #+#    #+#             */
-/*   Updated: 2025/05/08 23:20:47 by kguillem         ###   ########.fr       */
+/*   Updated: 2025/05/10 02:07:56 by kguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	get_mandelbrot(t_fract *fractal, t_complex *c)
 
 int	get_julia(t_fract *fractal, t_complex *c, int x, int y)
 {
-	double	temp;
+	double		temp;
 	t_complex	z;
-	int	i;
+	int			i;
 
 	i = -1;
 	z.reel = (x / fractal->zoom) + fractal->offset_x;
@@ -44,4 +44,23 @@ int	get_julia(t_fract *fractal, t_complex *c, int x, int y)
 		z.reel = temp;
 	}
 	return(i);
+}
+
+int	calc_fractal(t_frac *fractal, t_complex *c, int x, int y)
+{
+	int	iter;
+
+	iter = 0;
+	if (fractal->type == 1)
+	{
+		c->imagine = (y / fractal->zoom) + fractal->offset_y;
+		iter = get_mandelbrot(fractal, c);
+	}
+	else 
+	{
+		if (!fract->juliasearch)
+			c->imagine = (fractal->mouse_y / fractal->zoom) + fractal->offset_y;
+		iter = get_julia(fractal, c, x, y);
+	}
+	return (iter);
 }
