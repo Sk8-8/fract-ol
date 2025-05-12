@@ -35,6 +35,19 @@ int	checkerror(char *type)
 		return (1);
 }
 
+void	fill_screen(t_toscreen *screen, int set_type)
+{
+	screen->fractal.type = set_type;
+	screen->fractal.zoom = WIN_SIZE / 4;
+	screen->fractal.mouse_x = 0;
+	screen->fractal.mouse_y = 0;
+	screen->fractal.offset_x = -2;
+	screen->fractal.offset_y = -2;
+	screen->fractal.searchjulia = 1;
+	screen->fractal.color = DEFAULT_COLOR;
+	screen->fractal.iterations = MAX_ITERATIONS;
+}
+
 int	main(int argc, char **argv)
 {
 	t_toscreen	screen;
@@ -42,9 +55,9 @@ int	main(int argc, char **argv)
 	if (argc != 2 || (checkerror(argv[1]) == 1))
 		return (how_to_use());
 	if (argv[1][0] == 'm')
-		screen->fractal.type = 1;
+		fill_screen(screen, 1);
 	else
-		screen->fractal.type = 2;
+		fill_screen(screen, 2);
 	init_screen(&screen);
 	draw_fractal(&screen);
 	mlx_key_hook(screen.window, keyhook_event, &screen);
